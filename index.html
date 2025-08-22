@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ley N° 32272 — Guía animada</title>
+  <meta name="description" content="Resumen interactivo y animado de la Ley N° 32272 para docentes de instituciones educativas privadas de Educación Básica." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0f1226;
+      --bg-soft: #15183a;
+      --card: #1b1f4a;
+      --text: #eef1ff;
+      --muted: #b9c0ff;
+      --brand: #7c9bff;
+      --brand-2:#6ee7f9;
+      --ok: #3ddc97;
+      --warn: #ffd166;
+      --danger:#ff6b6b;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 18px;
+    }
+    [data-theme="light"]{
+      --bg: #f7f9ff;
+      --bg-soft: #eef1ff;
+      --card: #ffffff;
+      --text: #101428;
+      --muted: #495180;
+      --brand: #4158f6;
+      --brand-2:#06b6d4;
+      --ok: #059669;
+      --warn: #b45309;
+      --danger:#dc2626;
+      --shadow: 0 10px 30px rgba(12, 21, 58, .12);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans","Apple Color Emoji","Segoe UI Emoji";background:var(--bg);color:var(--text);scroll-behavior:smooth}
+
+    /* Header */
+    .app-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,var(--bg) 0%, rgba(0,0,0,0) 100%)}
+    .nav{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 22px;border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px)}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+    .brand .logo{width:32px;height:32px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:var(--shadow)}
+    .nav a{color:var(--text);text-decoration:none;font-weight:600;opacity:.9}
+    .nav a:hover{opacity:1}
+    .nav-links{display:flex;gap:16px;align-items:center}
+    .theme-toggle{border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--text);padding:8px 12px;border-radius:12px;cursor:pointer}
+
+    /* Progress bar */
+    .progress{height:4px;background:linear-gradient(90deg,var(--brand),var(--brand-2));width:0%}
+
+    /* Hero */
+    .hero{position:relative;overflow:hidden}
+    .hero-wrap{max-width:1100px;margin:0 auto;padding:48px 22px 22px 22px}
+    .headline{font-size:clamp(26px,4vw,44px);line-height:1.1;margin:12px 0 8px}
+    .sub{color:var(--muted);max-width:850px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{appearance:none;border:none;border-radius:14px;padding:12px 16px;font-weight:700;cursor:pointer}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:white;box-shadow:var(--shadow)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.18);color:var(--text)}
+
+    /* Floating shapes */
+    .floaters{position:absolute;inset:0;pointer-events:none}
+    .blob{position:absolute;filter:blur(40px);opacity:.35;border-radius:50%}
+    .b1{background:radial-gradient(circle at 30% 30%, var(--brand), transparent 60%);width:380px;height:380px;left:-80px;top:-40px;animation:float 12s infinite ease-in-out}
+    .b2{background:radial-gradient(circle at 70% 70%, var(--brand-2), transparent 60%);width:420px;height:420px;right:-120px;bottom:-80px;animation:float 16s infinite ease-in-out reverse}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+    /* Layout */
+    .container{max-width:1100px;margin:0 auto;padding:24px 22px 84px}
+    .grid{display:grid;grid-template-columns:280px 1fr;gap:24px}
+    @media (max-width: 980px){.grid{grid-template-columns:1fr}}
+
+    /* TOC */
+    .toc{position:sticky;top:78px;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow)}
+    .toc h3{margin:4px 8px 8px;font-size:14px;color:var(--muted)}
+    .toc a{display:block;padding:10px 12px;margin:6px;border-radius:12px;color:var(--text);text-decoration:none;font-weight:600;opacity:.9}
+    .toc a.active{background:linear-gradient(135deg,rgba(124,155,255,.15),rgba(110,231,249,.15));}
+    .toc a:hover{opacity:1}
+
+    /* Cards */
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px 18px 16px;box-shadow:var(--shadow)}
+    .card h2{margin:0 0 8px;font-size:clamp(18px,2.4vw,26px)}
+    .meta{display:flex;gap:14px;align-items:center;color:var(--muted);font-size:14px}
+
+    /* Accordion */
+    .accordion{display:grid;gap:12px;margin-top:10px}
+    .acc-item{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);border-radius:14px;overflow:hidden}
+    .acc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-weight:700}
+    .acc-content{max-height:0;overflow:hidden;transition:max-height .45s ease}
+    .acc-content-inner{padding:0 16px 16px;color:var(--text)}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+    .pill.ok{background:rgba(61,220,151,.12);color:var(--ok)}
+    .pill.warn{background:rgba(255,209,102,.15);color:var(--warn)}
+
+    /* Timeline */
+    .timeline{position:relative;margin-top:6px;padding:16px;border-radius:14px;background:linear-gradient(180deg,rgba(124,155,255,.12),rgba(110,231,249,.08))}
+    .timeline .line{position:relative;height:6px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden}
+    .timeline .fill{position:absolute;left:0;top:0;bottom:0;width:70%;background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+    .timeline .labels{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted);font-size:13px}
+
+    /* Callouts */
+    .callouts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media (max-width: 900px){.callouts{grid-template-columns:1fr}}
+    .callout{padding:16px;border-radius:14px;border:1px dashed rgba(255,255,255,.22)}
+
+    /* Footer */
+    footer{padding:40px 22px;text-align:center;color:var(--muted)}
+
+    /* Appear Animation */
+    .reveal{opacity:0;transform:translateY(10px);transition:all .6s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+
+    /* Back to top */
+    .to-top{position:fixed;right:18px;bottom:18px;z-index:60;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+    .to-top.show{opacity:1;pointer-events:auto}
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">📘</div>
+        <span>Ley N° 32272</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#objeto">Objeto & Supervisión</a>
+        <a href="#requisito">Requisito de Titulación</a>
+        <a href="#modalidad">Modalidad & Adecuación</a>
+        <a href="#sustento">Sustento</a>
+        <button id="themeBtn" class="theme-toggle" title="Cambiar tema">🌗 Tema</button>
+      </nav>
+    </div>
+    <div class="progress" id="progress"></div>
+  </header>
+
+  <section class="hero">
+    <div class="floaters" aria-hidden="true">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+    </div>
+    <div class="hero-wrap">
+      <p class="pill ok">Guía rápida — Educación Básica (gestión privada)</p>
+      <h1 class="headline">Disposiciones clave de la <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent">Ley N° 32272</span></h1>
+      <p class="sub">Esta página resume de forma <strong>interactiva y visual</strong> las medidas sobre el requisito de titulación docente, el período de <em>supervisión orientativa</em> y los procesos de adecuación para instituciones educativas privadas.</p>
+ <div class="cta-row">
+  <a class="btn btn-primary" href="#objeto">Ver puntos clave</a>
+  <a class="btn btn-ghost" id="printBtn" href="https://img.lpderecho.pe/wp-content/uploads/2025/03/Ley-32272-LPDerecho.pdf" target="_blank">
+    🖨️ Imprimir/Guardar PDF Ley
+  </a>
+</div>    </div>
+  </section>
+
+  <main class="container">
+    <div class="grid">
+      <!-- TOC -->
+      <aside class="toc" id="toc">
+        <h3>Contenido</h3>
+        <a href="#objeto" class="active">Objeto y Supervisión orientativa</a>
+        <a href="#plazo">Plazo de 7 años</a>
+        <a href="#requisito">Requisito al finalizar el plazo</a>
+        <a href="#modalidad">Modalidad de ejercicio</a>
+        <a href="#adecuacion">Procesos de adecuación</a>
+        <a href="#plan">Plan de adecuación docente</a>
+        <a href="#registro">Registro nacional</a>
+        <a href="#convenios">Convenios para titulación</a>
+        <a href="#sustento">Sustento para continuidad</a>
+      </aside>
+
+      <!-- Content -->
+      <section>
+        <article id="objeto" class="card reveal">
+          <h2>Objeto de la Ley y Supervisión orientativa</h2>
+          <p class="meta">Finalidad: favorecer la regularización del requisito de <strong>título pedagógico o profesional</strong> en docentes contratados.</p>
+          <div class="accordion" role="tablist">
+            <div class="acc-item">
+              <div class="acc-head" role="button" aria-expanded="false">¿Qué modifica la ley?<span>➕</span></div>
+              <div class="acc-content"><div class="acc-content-inner">
+                <p>Modifica, por única vez, el <strong>plazo</strong> de las <em>supervisiones orientativas</em> en instituciones educativas privadas de Educación Básica en lo referido al requisito de titulación para el ejercicio de la docencia.</p>
+              </div></div>
+            </div>
+            <div class="acc-item">
+              <div class="acc-head" role="button" aria-expanded="false">¿Cuál es el enfoque de la supervisión?<span>➕</span></div>
+              <div class="acc-content"><div class="acc-content-inner">
+                <p>Durante el período establecido, las acciones de supervisión sobre el requisito del título tienen <strong>carácter orientativo</strong>, con el objetivo de que el personal docente <strong>subsanen</strong> la obtención de su título en beneficio de los estudiantes.</p>
+              </div></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="plazo" class="card reveal">
+          <h2>Plazo de supervisión: 7 años</h2>
+          <p class="meta">Cómputo: desde la vigencia del <strong>Decreto de Urgencia 002-2020</strong>.</p>
+          <div class="timeline" aria-label="Línea de tiempo de 7 años">
+            <div class="line"><div class="fill" id="timeFill"></div></div>
+            <div class="labels"><span>Inicio (DU 002-2020)</span><span>7 años</span></div>
+          </div>
+          <p style="margin-top:10px;color:var(--muted)">Nota: Durante este lapso, las supervisiones sobre el requisito de titulación son de naturaleza <em>orientativa</em>.</p>
+        </article>
+
+        <article id="requisito" class="card reveal">
+          <h2>Requisito de titulación al terminar el plazo</h2>
+          <div class="callouts">
+            <div class="callout">
+              <p class="pill warn">Exigencia</p>
+              <p>Vencidos los 7 años, la institución privada deberá contar con el <strong>100% de docentes contratados titulados</strong> (título pedagógico o título profesional).</p>
+            </div>
+            <div class="callout">
+              <p class="pill ok">Objetivo</p>
+              <p>Garantizar la <strong>idoneidad</strong> del servicio educativo y combatir la <strong>informalidad</strong> en la prestación del servicio.</p>
+            </div>
+            <div class="callout">
+              <p class="pill warn">Implicancia</p>
+              <p>La continuidad de quienes no hayan obtenido el título <strong>no será posible</strong> bajo condiciones formales una vez vencido el plazo.</p>
+            </div>
+          </div>
+        </article>
+
+        <article id="modalidad" class="card reveal">
+          <h2>Modalidad para ejercer la docencia</h2>
+          <p>La ley no crea una “modalidad pedagógica” nueva. Regula las <strong>condiciones</strong> para ejercer la docencia en el ámbito de la <em>prestación de servicios educativos de Educación Básica de gestión privada</em>, centrando el requisito en la <strong>titulación</strong>.</p>
+        </article>
+
+        <article id="adecuacion" class="card reveal">
+          <h2>Procesos de adecuación</h2>
+          <div class="accordion">
+            <div class="acc-item">
+              <div class="acc-head" role="button" aria-expanded="false">Plan de adecuación docente (90 días)<span>➕</span></div>
+              <div class="acc-content"><div class="acc-content-inner">
+                <p>Las IEP deberán presentar, dentro de los <strong>90 días calendario</strong> desde la entrada en vigor de la ley, un plan a su UGEL con mecanismos de seguimiento para la titulación.</p>
+              </div></div>
+            </div>
+            <div class="acc-item">
+              <div class="acc-head" role="button" aria-expanded="false">Registro nacional de docentes en proceso<span>➕</span></div>
+              <div class="acc-content"><div class="acc-content-inner">
+                <p>El MINEDU implementa y administra el <strong>registro</strong>. Las IEP inscriben a los docentes contratados que aún no cuenten con título pedagógico o profesional.</p>
+              </div></div>
+            </div>
+            <div class="acc-item">
+              <div class="acc-head" role="button" aria-expanded="false">Programas y convenios para titulación<span>➕</span></div>
+              <div class="acc-content"><div class="acc-content-inner">
+                <p>El MINEDU promueve <strong>programas de titulación</strong> a cargo de universidades (públicas o privadas) e institutos superiores pedagógicos mediante convenios.</p>
+              </div></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="plan" class="card reveal">
+          <h2>Contenido mínimo del plan de adecuación docente</h2>
+          <ul>
+            <li><strong>[10a]</strong> Relación del personal docente contratado.</li>
+            <li><strong>[10b]</strong> Estudios realizados y grados académicos obtenidos.</li>
+            <li><strong>[10c]</strong> Nivel, ciclo o modalidad en que ejerce la docencia.</li>
+            <li><strong>[10d]</strong> Mecanismos de seguimiento de su titulación.</li>
+          </ul>
+        </article>
+
+        <article id="registro" class="card reveal">
+          <h2>Registro nacional de docentes en proceso de titulación</h2>
+          <p>Instrumento administrado por el Ministerio de Educación para el seguimiento y la transparencia del avance de titulación de docentes contratados sin título.</p>
+        </article>
+
+        <article id="convenios" class="card reveal">
+          <h2>Convenios para titulación</h2>
+          <p>El Ministerio de Educación fomenta la oferta de <strong>programas especiales de titulación</strong> con universidades e institutos pedagógicos para facilitar el cumplimiento del requisito.</p>
+        </article>
+
+        <article id="sustento" class="card reveal">
+          <h2>Sustento para la continuidad o no del docente</h2>
+          <div class="accordion">
+            <div class="acc-item">
+              <div class="acc-head" role="button" aria-expanded="false">Durante el período de gracia<span>➕</span></div>
+              <div class="acc-content"><div class="acc-content-inner">
+                <p><strong>No hay retiro automático</strong>. La supervisión es orientativa y busca dar oportunidad de regularización.</p>
+              </div></div>
+            </div>
+            <div class="acc-item">
+              <div class="acc-head" role="button" aria-expanded="false">Tras los 7 años<span>➕</span></div>
+              <div class="acc-content"><div class="acc-content-inner">
+                <p>Las IEP deben contar con el <strong>100% de docentes contratados titulados</strong>. Si un docente no obtuvo su título, la institución <strong>no cumple la ley</strong>, lo que impide su continuidad bajo condiciones formales.</p>
+              </div></div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <button id="toTop" class="btn btn-primary to-top" title="Volver arriba">↑</button>
+
+  <footer>
+    <small>Esta es una síntesis informativa y no reemplaza la lectura de la norma. — Ley N° 32272</small>
+  </footer>
+
+  <script>
+    // Theme toggle with memory
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme){
+      if(savedTheme === 'light') root.setAttribute('data-theme','light');
+    } else {
+      // Match system preference once
+      if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
+        root.setAttribute('data-theme','light');
+      }
+    }
+    themeBtn.addEventListener('click',()=>{
+      const isLight = root.getAttribute('data-theme')==='light';
+      root.setAttribute('data-theme', isLight ? '' : 'light');
+      localStorage.setItem('theme', isLight ? 'dark' : 'light');
+    });
+
+    // Print
+// Abrir PDF en una nueva pestaña
+document.getElementById('printBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.open('https://img.lpderecho.pe/wp-content/uploads/2025/03/Ley-32272-LPDerecho.pdf', '_blank');
+});
+
+    // Progress bar on scroll
+    const progress = document.getElementById('progress');
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop)/(h.scrollHeight - h.clientHeight) * 100;
+      progress.style.width = scrolled + '%';
+      // Back to top button
+      document.getElementById('toTop').classList.toggle('show', h.scrollTop > 400);
+    };
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // Back to top
+    document.getElementById('toTop').addEventListener('click',()=>{
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    // Reveal on view
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      })
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Accordion behavior
+    document.querySelectorAll('.acc-head').forEach(head=>{
+      head.addEventListener('click',()=>{
+        const item = head.parentElement;
+        const content = item.querySelector('.acc-content');
+        const expanded = head.getAttribute('aria-expanded')==='true';
+        head.setAttribute('aria-expanded', !expanded);
+        head.querySelector('span').textContent = expanded ? '➕' : '➖';
+        if(!expanded){
+          content.style.maxHeight = content.scrollHeight + 'px';
+        } else {
+          content.style.maxHeight = 0;
+        }
+      });
+    });
+
+    // Smooth active link highlight in TOC
+    const tocLinks = Array.from(document.querySelectorAll('#toc a'));
+    const sections = tocLinks.map(a=>document.querySelector(a.getAttribute('href')));
+    const spy = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const id = '#' + e.target.id;
+          tocLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
+        }
+      })
+    },{rootMargin:'-40% 0px -55% 0px', threshold:0});
+    sections.forEach(s=> spy.observe(s));
+
+    // Animate the timeline fill (visual only)
+    const fill = document.getElementById('timeFill');
+    let w = 0; const timer = setInterval(()=>{ w += 2; fill.style.width = Math.min(w,100) + '%'; if(w>=100) clearInterval(timer); }, 18);
+  </script>
+</body>
+</html>
