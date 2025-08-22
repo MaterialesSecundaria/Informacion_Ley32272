@@ -146,12 +146,19 @@
       <p class="pill ok">Guía rápida — Educación Básica (gestión privada)</p>
       <h1 class="headline">Disposiciones clave de la <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent">Ley N° 32272</span></h1>
       <p class="sub">Esta página resume de forma <strong>interactiva y visual</strong> las medidas sobre el requisito de titulación docente, el período de <em>supervisión orientativa</em> y los procesos de adecuación para instituciones educativas privadas.</p>
- <div class="cta-row">
+<div class="cta-row">
   <a class="btn btn-primary" href="#objeto">Ver puntos clave</a>
+
+  <!-- Botón para imprimir/guardar la Ley -->
   <a class="btn btn-ghost" id="printBtn" href="https://img.lpderecho.pe/wp-content/uploads/2025/03/Ley-32272-LPDerecho.pdf" target="_blank">
     🖨️ Imprimir/Guardar PDF Ley
   </a>
-</div>    </div>
+
+  <!-- Nuevo botón para verificar título en SUNEDU -->
+  <a class="btn btn-success" id="suneduBtn" href="https://enlinea.sunedu.gob.pe/" target="_blank">
+    ✅ Verificar Título en SUNEDU
+  </a>
+</div>
   </section>
 
   <main class="container">
@@ -319,6 +326,12 @@
 document.getElementById('printBtn').addEventListener('click', (e) => {
   e.preventDefault();
   window.open('https://img.lpderecho.pe/wp-content/uploads/2025/03/Ley-32272-LPDerecho.pdf', '_blank');
+});
+
+// Abrir SUNEDU en nueva pestaña
+document.getElementById('suneduBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.open('https://enlinea.sunedu.gob.pe/', '_blank');
 });
 
     // Progress bar on scroll
